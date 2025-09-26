@@ -1,0 +1,51 @@
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# --- First graph (5-FU) ---
+G = nx.Graph()
+G.add_edges_from([("5FU", "CASP3"), ("CASP3", "Neurotoxicity"), ("5FU", "TP53"), ("TP53", "Cardiotoxicity")])
+
+# Labels
+labels = {
+    "5FU": "5-FU",
+    "CASP3": "CASP3",
+    "Neurotoxicity": "Neurotoxicity Syndromes",
+    "TP53": "TP53",
+    "Cardiotoxicity": "Cardiotoxicity"
+}
+
+# --- Second graph (Asparaginase) ---
+G2 = nx.Graph()
+G2.add_edges_from([("Asparaginase", "CASP3"), ("CASP3", "Neurotoxicity"), ("CASP3", "Cardiotoxicity")])
+
+labels2 = {
+    "Asparaginase": "Asparaginase",
+    "CASP3": "CASP3",
+    "Neurotoxicity": "Neurotoxicity Syndromes",
+    "Cardiotoxicity": "Cardiotoxicity"
+}
+
+# --- Merge graphs ---
+G_master = nx.compose(G, G2)
+
+# Combine labels
+master_labels = {}
+master_labels.update(labels)
+master_labels.update(labels2)
+
+# Assign colors (drugs=red, genes=blue, side effects=green)
+node_colors = []
+for node in G_master.nodes():
+    if node in ["5FU", "Asparaginase"]:
+        node_colors.append("red")   # drugs
+    elif node in ["CASP3", "TP53"]:
+        node_colors.append("blue")  # genes
+    else:
+        node_colors.append("green") # side effects
+
+# Draw master graph
+plt.figure(figsize=(10,10))
+pos = nx.spring_layout(G_master, k=0.5, seed=42)
+nx.draw(G_master, pos, labels=master_labels, node_color=node_colors, node_size=2000, font_size=10, with_labels=True)
+plt.title("Master Network Graph")
+plt.show()
