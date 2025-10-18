@@ -13,7 +13,8 @@ The difference between the proposed research contribution and previous research 
 
 PyCharm Files
 
-ProteinComplexes.py file extracts evidence based on 3-hop network graphs (can be modified to 2-hop network graphs), and belief score, and evidence count based on the MeshID (Cardiotoxicity or Neurotoxicity)
+INDRA1.py file extracts evidence from the INDRA Database such as based on a single chemotherapy drug(modifiable) and side effects based on evidence count, prints statements relating to the chemotherapy drug, their side effects, and either Activation, Phosphorylation, etc. 
+ProteinComplexes.py file extracts evidence based on 3-hop network graphs (can be modified to 2-hop network graphs), and belief score, and evidence count based on the MeshID (Cardiotoxicity or Neurotoxicity) from INDRA CogEx with the assistance of Neo4J.
 NetworkGraphs file creates 19 network graphs based on the data extracted from ProteinComplexes.py file
 
 
